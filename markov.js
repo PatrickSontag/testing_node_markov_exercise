@@ -36,24 +36,27 @@ class MarkovMachine {
     return this.chains
   }
 
+  /** Pick random choice from array */
+
+  static choice(ar) {
+    return ar[Math.floor(Math.random() * ar.length)];
+  }
 
   /** return random text from chains */
 
-  makeText(numWords = 10) {
-    console.log("MAKE TEXT");
-    console.log(this.chains);
-    let word1 = Object.keys(this.chains)[0];
+  makeText(numWords = 20) {
+    // pick a random key to begin
+    let keys = Array.from(this.chains.keys());
+    let key = MarkovMachine.choice(keys);
+    let out = [];
 
-    let previousWord = word1;
-    let currentWord;
-    let text = "";
-    for (let i = 0; i < numWords; i++) {
-      currentWord = this.chains[previousWord][0]; 
-      text = text + " " + currentWord;
-      previousWord = currentWord;
+    // produce markov chain until reaching termination word
+    while (out.length < numWords && key !== null) {
+      out.push(key);
+      key = MarkovMachine.choice(this.chains.get(key));
     }
-    console.log("Full makeText: ", text);
-    return text;
+
+    return out.join(" ");
   }
 }
 
