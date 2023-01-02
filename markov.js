@@ -46,14 +46,14 @@ class MarkovMachine {
 
   makeText(numWords = 20) {
     // pick a random key to begin
-    let keys = Array.from(this.chains.keys());
+    let keys = Object.keys(this.chains);
     let key = MarkovMachine.choice(keys);
     let out = [];
 
     // produce markov chain until reaching termination word
     while (out.length < numWords && key !== null) {
       out.push(key);
-      key = MarkovMachine.choice(this.chains.get(key));
+      key = MarkovMachine.choice(this.chains[key]);
     }
 
     return out.join(" ");
