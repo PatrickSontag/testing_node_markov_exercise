@@ -18,7 +18,6 @@ class MarkovMachine {
    *  {"the": ["cat", "hat"], "cat": ["in"], "in": ["the"], "hat": [null]} */
 
   makeChains(words) {
-    console.log(words);
     for (let [i, word] of words.entries()) {
       // handle existing key word (that are not last word)
       if(this.chains[word] && words[i + 1] !== undefined) {
@@ -33,15 +32,33 @@ class MarkovMachine {
         this.chains[word] = [words[i + 1]];
       } 
     }
-    console.log(this.chains);
+    console.log("this.chains:", this.chains);
+    return this.chains
   }
 
 
   /** return random text from chains */
 
-  makeText(numWords = 100) {
-    // TODO
+  makeText(numWords = 10) {
+    console.log("MAKE TEXT");
+    console.log(this.chains);
+    console.log("Object Length:", Object.keys(this.chains).length);
+    let word1 = Object.keys(this.chains)[0];
+    let word2 = this.chains[word1][0];
+    console.log("word1:", word1);
+    console.log("word2:", word2);
+
+    let previousWord = word1;
+    let currentWord;
+    for (let i = 0; i < numWords; i++) {
+      currentWord = this.chains[previousWord][0]; 
+      console.log("next word: ", currentWord);
+      previousWord = currentWord;
+    }
   }
 }
 
 let mm = new MarkovMachine("the cat in the hat");
+// let hat = new MarkovMachine("the cat in the hat");
+mm.makeText();
+module.exports = MarkovMachine
