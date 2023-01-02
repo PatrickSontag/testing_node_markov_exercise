@@ -50,11 +50,14 @@ class MarkovMachine {
 
     let previousWord = word1;
     let currentWord;
+    let text = "";
     for (let i = 0; i < numWords; i++) {
       currentWord = this.chains[previousWord][0]; 
-      console.log("next word: ", currentWord);
+      text = text + " " + currentWord;
       previousWord = currentWord;
     }
+    console.log("Full makeText: ", text);
+    return text;
   }
 }
 
