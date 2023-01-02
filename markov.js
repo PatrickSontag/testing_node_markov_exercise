@@ -9,7 +9,7 @@ class MarkovMachine {
     let words = text.split(/[ \r\n]+/);
     this.words = words.filter(c => c !== "");
     this.chains = {};
-    this.makeChains(this.words);
+    this.makeChains();
   }
 
   /** set markov chains:
@@ -17,19 +17,19 @@ class MarkovMachine {
    *  for text of "the cat in the hat", chains will be
    *  {"the": ["cat", "hat"], "cat": ["in"], "in": ["the"], "hat": [null]} */
 
-  makeChains(words) {
-    for (let [i, word] of words.entries()) {
+  makeChains() {
+    for (let [i, word] of this.words.entries()) {
       // handle existing key word (that are not last word)
-      if(this.chains[word] && words[i + 1] !== undefined) {
-        this.chains[word].push(words[i + 1]);
+      if(this.chains[word] && this.words[i + 1] !== undefined) {
+        this.chains[word].push(this.words[i + 1]);
       }
       // handle last word (if word not already defined)
-      if(words[i + 1] === undefined && !this.chains[word]) {
+      if(this.words[i + 1] === undefined && !this.chains[word]) {
         this.chains[word] = [null];
       }
       // handle new key word
       if(!this.chains[word]) {
-        this.chains[word] = [words[i + 1]];
+        this.chains[word] = [this.words[i + 1]];
       } 
     }
     console.log("this.chains:", this.chains);
@@ -42,11 +42,7 @@ class MarkovMachine {
   makeText(numWords = 10) {
     console.log("MAKE TEXT");
     console.log(this.chains);
-    console.log("Object Length:", Object.keys(this.chains).length);
     let word1 = Object.keys(this.chains)[0];
-    let word2 = this.chains[word1][0];
-    console.log("word1:", word1);
-    console.log("word2:", word2);
 
     let previousWord = word1;
     let currentWord;
