@@ -32,8 +32,6 @@ class MarkovMachine {
         this.chains[word] = [this.words[i + 1]];
       } 
     }
-    console.log("this.chains:", this.chains);
-    return this.chains
   }
 
   /** Pick random choice from array */
@@ -61,6 +59,5 @@ class MarkovMachine {
 }
 
 let mm = new MarkovMachine("the cat in the hat");
-// let hat = new MarkovMachine("the cat in the hat");
 mm.makeText();
 module.exports = MarkovMachine
