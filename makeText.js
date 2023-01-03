@@ -1,4 +1,5 @@
 const fs = require('fs');
+const axios = require('axios');
 const markov = require('./markov');
 
 const createText = (text) => {
@@ -19,6 +20,21 @@ const makeText = (path) => {
     })
 }
 
-if (process.argv[2]) {
-    makeText(process.argv[2]);
+const makeUrlText = (url) => {
+    axios.get(url)
+    .then(function(response){
+        createText(response.data);
+    })
+    .catch(function (error) {
+        console.log(`ERROR fetching ${url}:`, error.message);
+    })
 }
+
+if (process.argv[2] === "file") {
+    makeText(process.argv[3]);
+}
+if (process.argv[2] === "url") {
+    makeUrlText(process.argv[3]);
+}
+
+module.exports = { makeUrlText, makeText };
