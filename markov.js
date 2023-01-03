@@ -44,7 +44,7 @@ class MarkovMachine {
 
   /** return random text from chains */
 
-  makeText(numWords = 20) {
+  makeText(numWords = 100) {
     // pick a random key to begin
     let keys = Object.keys(this.chains);
     let key = MarkovMachine.choice(keys);
