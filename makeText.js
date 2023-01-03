@@ -2,7 +2,7 @@ const fs = require('fs');
 const markov = require('./markov');
 
 const createText = (text) => {
-    console.log(text)
+    // console.log(text)
     const markovMachine = new markov(text)
     console.log(markovMachine.makeText())
 }
@@ -17,4 +17,8 @@ const makeText = (path) => {
             createText(data);
         }
     })
+}
+
+if (process.argv[2]) {
+    makeText(process.argv[2]);
 }
